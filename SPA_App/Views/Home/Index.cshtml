@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>ManagePerson</h2>
+
+<div id="view">
+    
+    <br />
+    please wait...
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $("#view").load('/Home/listperson');
+        })
+        $("#showAddpage").click(function () {
+            $("#view").load('/Home/Add');
+        })
+        function Edit(id) {
+            $("#view").load('/Home/Edit/'+id);
+      
+        }
+    </script>
+    }
+

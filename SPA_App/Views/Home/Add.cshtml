@@ -1,0 +1,32 @@
+﻿<h2>Add Person</h2>
+<div id="view">
+    <div class="form-group">
+        <input placeholder="name" class="form-control" id="name" />
+    </div>
+    <div class="form-group">
+        <input placeholder="fname" class="form-control" id="fname" />
+    </div>
+    <div class="form-group">
+        <input placeholder="age" class="form-control" id="age" />
+    </div>
+    <button class="btn btn-success" id="btn">Insert</button>
+</div>
+<script>
+    $("#btn").click(function ()
+    {
+        var person = {
+            Name: $("#name").val(),
+            Fname: $("#fname").val(),
+            age: $("#age").val(),
+        }
+        $.ajax({
+            url: '/Api/person',
+            type: 'Post',
+            data: person
+        }).done(function () {
+            alert("ok");
+            $("#view").load('/Home/listperson');
+
+        })
+    })
+</script>

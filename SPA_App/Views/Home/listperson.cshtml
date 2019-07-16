@@ -1,0 +1,55 @@
+﻿<h2>list person</h2>
+<table class="table table-bordered" id="tbl">
+    <tr>
+        <td>name</td>
+        <td>Fname</td>
+        <td>age</td>
+        <td>Command</td>
+    </tr>
+ 
+</table>
+<script>
+    $.getJSON('/Api/person', function (res) {
+        var html = ''
+        
+        $.each(res, function (key, val) {
+            html += '<tr id="tr_' + val.Id+'" > ';
+            html += '<td>' + val.Name + '</td>';
+            html += '<td>' + val.Fname + '</td>';
+            html += '<td>' + val.age + '</td>';
+            html += "<td> <a class='btn btn-danger' onClick='Edit(" + val.Id + ")'>Edit</td>";
+            html += "<td> <a class='btn btn-danger' onClick='Delete(" + val.Id + ")'>Delete</td>";
+        html += '</tr>';
+        });
+        $("#tbl").append(html);
+    })
+
+
+
+</script>
+<script>
+    function Delete(id) {
+        if (confirm('آیا از حذف مطمئن هستید ؟')) {
+            $.ajax({
+                url: "/Api/person/" + id,
+                type: "Delete"
+            }).done(function () {
+                $("#tr_" + id).addClass("danger");
+                $("#tr_" + id).hide('slow');
+            });
+        }
+    }
+   
+    //function Delete(id) {
+    //    if (confirm('آیا از حذف این آیتم مطمئن هستید؟')) {
+    //        $.ajax({
+    //            url: "/Api/person" + id,
+    //            type: "Delete"
+    //        }).done(function () {
+    //            $("#tr_" + id).addClass("danger");
+    //            $("#tr_" + id).hide('slow');
+    //        });
+
+    //    }
+    //}
+</script>

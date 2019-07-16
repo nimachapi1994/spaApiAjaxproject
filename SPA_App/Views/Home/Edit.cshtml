@@ -1,0 +1,45 @@
+﻿<h2>Edit Person</h2>
+
+@model int
+<div id="view">
+    <div class="form-group">
+        <input placeholder="name" class="form-control" id="name" value="@Model"/>
+    </div>
+    <div class="form-group">
+        <input placeholder="fname" class="form-control" id="fname" />
+    </div>
+    <div class="form-group">
+        <input placeholder="age" class="form-control" id="age" />
+    </div>
+    <button class="btn btn-success" id="btn">Insert</button>
+</div>
+<script>
+    $.getJSON('/Api/person/' + @Model, function (result) {
+        $("#name").val(result.Name);
+        $("#fname").val(result.Fname);
+        $("#age").val(result.age);
+
+    });
+      
+</script>
+<script>
+     $("#btn").click(function ()
+    {
+         var person = {
+            Id:@Model,
+            Name: $("#name").val(),
+            Fname: $("#fname").val(),
+            age: $("#age").val(),
+        }
+        $.ajax({
+            url: '/Api/person/'+@Model,
+            type: 'Put',
+            data: person
+        }).done(function () {
+            alert("ok");
+            $("#view").load('/Home/listperson');
+
+        })
+    })
+</script>
+
